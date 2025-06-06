@@ -1,0 +1,4 @@
+services:
+  processor:
+    container_name: processor
+    build: .
