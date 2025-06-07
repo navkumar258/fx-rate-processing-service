@@ -5,7 +5,7 @@ import java.util.Objects;
 public class SubscriptionChange {
 
   private String eventId;
-  private String timestamp;
+  private long timestamp;
   private String eventType;
   private Subscription payload;
 
@@ -17,11 +17,11 @@ public class SubscriptionChange {
     this.eventId = eventId;
   }
 
-  public String getTimestamp() {
+  public long getTimestamp() {
     return timestamp;
   }
 
-  public void setTimestamp(String timestamp) {
+  public void setTimestamp(long timestamp) {
     this.timestamp = timestamp;
   }
 

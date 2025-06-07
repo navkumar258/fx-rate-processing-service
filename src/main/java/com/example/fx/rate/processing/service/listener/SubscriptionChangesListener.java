@@ -19,7 +19,8 @@ public class SubscriptionChangesListener {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SubscriptionChangesListener.class);
 
-  @KafkaListener(topics = "#{'${spring.kafka.topic.subscription-changes}'.split(',')}")
+  @KafkaListener(topics = "#{'${spring.kafka.topic.subscription-changes}'.split(',')}",
+  containerFactory = "subscriptionChangeKafkaListenerContainerFactory")
   public void consume(ConsumerRecord<String, SubscriptionChange> message) {
     LOGGER.info("[SubscriptionChangesListener] Received message with key: {}, value: {}", message.key(), message.value());
 

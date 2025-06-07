@@ -15,7 +15,8 @@ public class FXRatesListener {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(FXRatesListener.class);
 
-  @KafkaListener(topics = "#{'${spring.kafka.topic.fx-rates}'.split(',')}")
+  @KafkaListener(topics = "#{'${spring.kafka.topic.fx-rates}'.split(',')}",
+  containerFactory = "fxRatesKafkaListenerContainerFactory")
   public void consume(ConsumerRecord<String, FXRateUpdate> message) {
     LOGGER.info("[FXRatesListener] Received message with key: {}, value: {}", message.key(), message.value());
 

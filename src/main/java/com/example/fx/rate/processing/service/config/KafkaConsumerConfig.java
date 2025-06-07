@@ -1,6 +1,7 @@
 package com.example.fx.rate.processing.service.config;
 
 import com.example.fx.rate.processing.service.model.FXRateUpdate;
+import com.example.fx.rate.processing.service.model.SubscriptionChange;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +27,7 @@ public class KafkaConsumerConfig {
   private String consumerGroupId;
 
   @Bean
-  public ConsumerFactory<String, FXRateUpdate> consumerFactory() {
+  public ConsumerFactory<String, FXRateUpdate> fxRatesConsumerFactory() {
     Map<String, Object> props = new HashMap<>();
     props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
     props.put(ConsumerConfig.GROUP_ID_CONFIG, consumerGroupId);
@@ -41,11 +42,33 @@ public class KafkaConsumerConfig {
 
   @Bean
   public ConcurrentKafkaListenerContainerFactory<String, FXRateUpdate>
-  kafkaListenerContainerFactory() {
-
+  fxRatesKafkaListenerContainerFactory() {
     ConcurrentKafkaListenerContainerFactory<String, FXRateUpdate> factory =
             new ConcurrentKafkaListenerContainerFactory<>();
-    factory.setConsumerFactory(consumerFactory());
+    factory.setConsumerFactory(fxRatesConsumerFactory());
+    return factory;
+  }
+
+  @Bean
+  public ConsumerFactory<String, SubscriptionChange> subscriptionChangeConsumerFactory() {
+    Map<String, Object> props = new HashMap<>();
+    props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
+    props.put(ConsumerConfig.GROUP_ID_CONFIG, consumerGroupId);
+    props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+    props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+    props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "com.example.fx.rate.processing.service.model.SubscriptionChange");
+    props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
+    props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
+
+    return new DefaultKafkaConsumerFactory<>(props);
+  }
+
+  @Bean
+  public ConcurrentKafkaListenerContainerFactory<String, SubscriptionChange>
+  subscriptionChangeKafkaListenerContainerFactory() {
+    ConcurrentKafkaListenerContainerFactory<String, SubscriptionChange> factory =
+            new ConcurrentKafkaListenerContainerFactory<>();
+    factory.setConsumerFactory(subscriptionChangeConsumerFactory());
     return factory;
   }
 }

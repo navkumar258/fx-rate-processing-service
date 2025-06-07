@@ -56,15 +56,15 @@ def generate_subscriptions(num_subscriptions, num_users):
 
         subscription = {
             "id": sub_id,
-            "user_id": user_id,
-            "currency_pair": currency_pair,
+            "userId": user_id,
+            "currencyPair": currency_pair,
             "threshold": threshold_value,
             "direction": direction,
-            "notification_channels": sorted(notification_channels), # Consistent order
+            "notificationChannels": sorted(notification_channels), # Consistent order
             "status": status,
-            "created_at": created_at.isoformat(timespec='milliseconds'),
-            "updated_at": updated_at.isoformat(timespec='milliseconds'),
-            "last_triggered_at": None # Initially null, updated by matching service
+            "createdAt": created_at.isoformat(timespec='milliseconds'),
+            "updatedAt": updated_at.isoformat(timespec='milliseconds'),
+            "lastTriggeredAt": None # Initially null, updated by matching service
         }
         subscriptions.append(subscription)
 

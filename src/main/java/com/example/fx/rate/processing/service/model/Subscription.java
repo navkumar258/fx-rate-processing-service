@@ -1,7 +1,5 @@
 package com.example.fx.rate.processing.service.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
@@ -9,20 +7,14 @@ import java.util.Objects;
 public class Subscription {
 
   private String id;
-  @JsonProperty("user_id")
   private String userId;
-  @JsonProperty("currency_pair")
   private String currencyPair;
   private BigDecimal threshold;
   private String direction;
-  @JsonProperty("notification_channels")
   private List<String> notificationChannels;
   private String status;
-  @JsonProperty("created_at")
   private String createdAt;
-  @JsonProperty("updated_at")
   private String updatedAt;
-  @JsonProperty("last_triggered_at")
   private String lastTriggeredAt;
 
   public String getId() {
