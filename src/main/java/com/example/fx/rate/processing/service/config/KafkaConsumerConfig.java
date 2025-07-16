@@ -1,7 +1,7 @@
 package com.example.fx.rate.processing.service.config;
 
-import com.example.fx.rate.processing.service.model.FXRateUpdate;
-import com.example.fx.rate.processing.service.model.SubscriptionChange;
+import com.example.fx.rate.processing.service.dto.FXRateUpdate;
+import com.example.fx.rate.processing.service.dto.SubscriptionChange;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,7 +33,7 @@ public class KafkaConsumerConfig {
     props.put(ConsumerConfig.GROUP_ID_CONFIG, consumerGroupId);
     props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
     props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-    props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "com.example.fx.rate.processing.service.model.FXRateUpdate");
+    props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "com.example.fx.rate.processing.service.dto.FXRateUpdate");
     props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
     props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
 
@@ -56,7 +56,7 @@ public class KafkaConsumerConfig {
     props.put(ConsumerConfig.GROUP_ID_CONFIG, consumerGroupId);
     props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
     props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-    props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "com.example.fx.rate.processing.service.model.SubscriptionChange");
+    props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "com.example.fx.rate.processing.service.dto.SubscriptionChange");
     props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
     props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
 

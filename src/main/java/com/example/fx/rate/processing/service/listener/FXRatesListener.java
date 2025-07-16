@@ -1,6 +1,6 @@
 package com.example.fx.rate.processing.service.listener;
 
-import com.example.fx.rate.processing.service.model.FXRateUpdate;
+import com.example.fx.rate.processing.service.dto.FXRateUpdate;
 import com.example.fx.rate.processing.service.model.Subscription;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
@@ -29,7 +29,7 @@ public class FXRatesListener {
 
     for (Subscription subscription : CACHE.get(currencyPair)) {
       if (subscription.getDirection().equals("BELOW")
-              && value.getBid().compareTo(subscription.getThreshold()) < 0) {
+              && value.bid().compareTo(subscription.getThreshold()) < 0) {
         LOGGER.info("[FXRatesListener] Sending BELOW notification to user {}, " +
                         "subscription {}, " +
                         "currency-pair {}, " +
@@ -37,11 +37,11 @@ public class FXRatesListener {
                 subscription.getUserId(),
                 subscription.getId(),
                 subscription.getCurrencyPair(),
-                value.getBid(),
+                value.bid(),
                 subscription.getThreshold()
         );
       } else if (subscription.getDirection().equals("ABOVE")
-              && value.getAsk().compareTo(subscription.getThreshold()) > 0) {
+              && value.ask().compareTo(subscription.getThreshold()) > 0) {
         LOGGER.info("[FXRatesListener] Sending ABOVE notification to user {}, " +
                         "subscription {}, " +
                         "currency-pair {}, " +
@@ -49,7 +49,7 @@ public class FXRatesListener {
                 subscription.getUserId(),
                 subscription.getId(),
                 subscription.getCurrencyPair(),
-                value.getAsk(),
+                value.ask(),
                 subscription.getThreshold()
         );
       }
